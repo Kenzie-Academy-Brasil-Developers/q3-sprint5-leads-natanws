@@ -10,6 +10,8 @@ def create_lead():
     try:
         data = request.get_json()
 
+        print(data)
+
         required_fields = ['name', 'email', 'phone']
         LeadModel.check_fields(required_fields, data)
 
@@ -20,15 +22,7 @@ def create_lead():
         current_app.db.session.add(lead)
         current_app.db.session.commit()
 
-        return {
-            'id': lead.id,
-            'name': lead.name,
-            'email': lead.email,
-            'phone': lead.phone,
-            'creation_date': lead.creation_date,
-            'last_visit': lead.last_visit,
-            'visits': lead.visits
-        }, HTTPStatus.CREATED
+        return jsonify(lead), HTTPStatus.CREATED
     
     except IntegrityError as e:
         if isinstance(e.orig, UniqueViolation):
@@ -40,7 +34,8 @@ def create_lead():
         if e.__dict__['description'] == 'fields':
             return {'error': "Apenas utilizar campos 'name', 'email' e 'phone'"}, HTTPStatus.BAD_REQUEST
     
-    except TypeError:
+    except TypeError as e:
+        print(e)
         return {'error': "Todos campos devem ser string"}, HTTPStatus.BAD_REQUEST
         
         
@@ -50,10 +45,8 @@ def get_leads():
         
         if len(leads_data) == 0:
             raise NotFound
-
-        serialized_data = LeadModel.serialize(leads_data)
         
-        return jsonify(serialized_data), HTTPStatus.OK
+        return jsonify(leads_data), HTTPStatus.OK
     
     except NotFound:
         return {"error": "Nenhuma lead cadastrada"}, HTTPStatus.NOT_FOUND

@@ -1,9 +1,11 @@
+from dataclasses import dataclass
 from datetime import datetime
 from re import fullmatch
 from sqlalchemy import Column, Integer, String, DateTime
 from app.configs.database import db
 from werkzeug.exceptions import BadRequest
 
+@dataclass
 class LeadModel(db.Model):
     
     __tablename__ = 'leads'
@@ -25,20 +27,6 @@ class LeadModel(db.Model):
     visits = Column(Integer, nullable=False, default=1)
 
     @staticmethod
-    def serialize(data):
-        serialized_data = [{
-            'id': lead.id,
-            'name': lead.name,
-            'email': lead.email,
-            'phone': lead.phone,
-            'creation_date': lead.creation_date,
-            'last_visit': lead.last_visit,
-            'visits': lead.visits
-        } for lead in data]
-
-        return serialized_data
-
-    @staticmethod
     def validate_phone(phone):
         regex = '\([0-9]{2}\)[0-9]{5}\-[0-9]{4}'
 
@@ -51,5 +39,5 @@ class LeadModel(db.Model):
             if not key in required_fields:
                 raise BadRequest('fields')
         for value in data.values():
-            if value != str:
+            if type(value) != str:
                 raise TypeError
