@@ -5,6 +5,7 @@ from app.models.leads_model import LeadModel
 from werkzeug.exceptions import BadRequest, NotFound
 from psycopg2.errors import UniqueViolation
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.sql.expression import desc
 
 def create_lead():
     try:
@@ -41,7 +42,7 @@ def create_lead():
         
 def get_leads():
     try:
-        leads_data = LeadModel.query.all()
+        leads_data: LeadModel = LeadModel.query.order_by(desc("visits")).all()
         
         if len(leads_data) == 0:
             raise NotFound
