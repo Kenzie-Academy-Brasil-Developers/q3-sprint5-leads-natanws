@@ -1,8 +1,8 @@
-"""criaçao de tabela leads
+"""empty message
 
-Revision ID: 463dd0175ae7
-Revises: 62ba5eec4e75
-Create Date: 2022-02-27 01:36:15.146163
+Revision ID: d2ed57625cd8
+Revises: 
+Create Date: 2022-03-06 22:16:49.652243
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '463dd0175ae7'
-down_revision = '62ba5eec4e75'
+revision = 'd2ed57625cd8'
+down_revision = None
 branch_labels = None
 depends_on = None
 
