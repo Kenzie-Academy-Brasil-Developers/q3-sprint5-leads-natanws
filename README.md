@@ -1,18 +1,91 @@
 # Leads
 
+## POST `/leads`
 
-| Critérios | Pts. |
-|---|---|
-| Utilizar **SQLAlchemy**, **Dataclass**, **Blueprint**, **Migrations** e **Padrão Flask Factory** corretamente. | 1 |
-| [GET] **/leads** - Rota funcionando e ordenada de acordo com o enunciado. | 1 |
-| [GET] **/leads** - [ERRO] Nenhum dado encontrado. | 0.5 |
-| [POST] **/leads** - Rota funcionando de acordo com o enunciado. | 1 |
-| [POST] **/leads** - [ERRO] E-mail e telefone únicos. | 0.5 |
-| [POST] **/leads** - [ERRO] Telefone obrigatoriamente no formato (xx)xxxxx-xxxx. | 0.5 |
-| [PATCH] **/leads** - Rota funcionando de acordo com o enunciado. | 2 |
-| [PATCH] **/leads** - [ERRO] - Corpo da requisição obrigatoriamente apenas com email e deve ser uma string; | 0.5 |
-| [PATCH] **/leads** - [ERRO] - Nenhum dado encontrado. | 0.5 |
-| [DELETE] **/leads** - Rota funcionando de acordo com o enunciado. | 1 |
-| [DELETE] **/leads** - [ERRO] - Corpo da requisição obrigatoriamente apenas com email e deve ser uma string; | 0.5 |
-| [DELETE] **/leads** - [ERRO] - Nenhum dado encontrado. | 0.5 |
-| Arquivos **requirements.txt**, **.env**, **.env.example** e **.gitignore** (**venv** e **.env** adicionados) | 0.5 |
+Registro de um novo Lead
+
+Modelo de requisição:
+
+```python
+{
+    "name": "John Doe",
+    "email": "john@email.com,
+    "phone": "(41)90000-0000"
+}
+
+```
+
+Modelo de resposta:
+
+```python
+{
+    "name": "John Doe",
+    "email": "john@email.com",
+    "phone": "(41)90000-0000",
+    "creation_date": "Sun, 6 Mar 2022 22:39:25 GMT",
+    "last_visit": "Sun, 6 Mar 2022 22:39:25 GMT",
+    "visits": 1
+}
+
+```
+
+## GET `/leads`
+
+Lista todos leads já cadastrados por ordem de visitas do maior para o menor.
+
+Modelo de resposta:
+
+```python
+[
+    {
+        "creation_date": "Sun, 06 Mar 2022 22:46:55 GMT",
+        "email": "joa3a@email.comas",
+        "id": 4,
+        "last_visit": "Sun, 06 Mar 2022 22:52:49 GMT",
+        "name": "John Doea",
+        "phone": "(41)92000-0005",
+        "visits": 9
+    },
+    {
+        "creation_date": "Sun, 06 Mar 2022 22:46:55 GMT",
+        "email": "joaha@email.comas",
+        "id": 3,
+        "last_visit": "Sun, 06 Mar 2022 22:50:11 GMT",
+        "name": "John Doea",
+        "phone": "(41)91000-0005",
+        "visits": 6
+    },
+    {
+        "name": "John Doe",
+        "email": "john@email.com",
+        "phone": "(41)90000-0000",
+        "creation_date": "Sun, 6 Mar 2022 22:39:25 GMT",
+        "last_visit": "Sun, 6 Mar 2022 22:39:25 GMT",
+        "visits": 1
+    }
+]
+```
+
+## PATCH `/leads`
+
+Atualiza o número de `visits` com uma nova visita e `last_visit` com a data atual da requisição.
+
+Modelo de requisição:
+
+```python
+{
+        "email": "john@email.com",
+}
+```
+
+## DELETE `/leads`
+
+Exclui o lead da lista.
+
+Modelo de requisição:
+
+```python
+{
+        "email": "john@email.com",
+}
+```
