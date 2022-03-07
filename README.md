@@ -9,7 +9,7 @@ Modelo de requisição:
 ```python
 {
     "name": "John Doe",
-    "email": "john@email.com,
+    "email": "john@email.com",
     "phone": "(41)90000-0000"
 }
 
@@ -74,7 +74,7 @@ Modelo de requisição:
 
 ```python
 {
-        "email": "john@email.com",
+        "email": "john@email.com"
 }
 ```
 
@@ -86,6 +86,6 @@ Modelo de requisição:
 
 ```python
 {
-        "email": "john@email.com",
+        "email": "john@email.com"
 }
 ```
